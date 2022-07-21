@@ -5,7 +5,7 @@ inputs:
     description: The action to take [deploy|update]
     default: deploy
   token:
-    description: 'Edgio token when using the 'deploy' action'
+    description: 'Edgio token when using the `deploy` action'
 outputs:
   buildUrl:
     description: 'URL of this build in Edgio's developer console'
