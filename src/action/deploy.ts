@@ -8,7 +8,7 @@
 // - add pr comment after deploy
 
 import * as core from '@actions/core';
-import exec from '@actions/exec';
+import * as exec from '@actions/exec';
 import github from '@actions/github';
 import checkEnvironment from '../utils/checkEnvironment';
 import getDeployURLs from '../utils/deployOutput';
@@ -36,8 +36,7 @@ export default async function deploy(): Promise<void> {
       deployCmd.push(runCmd);
       deployCmd.push(customDeployCmd);
     } else {
-      deployCmd.push('0');
-      deployCmd.push('deploy');
+      deployCmd.push('0 deploy');
     }
 
     let deployOutput = '';
