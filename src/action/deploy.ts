@@ -54,16 +54,16 @@ export default async function deploy(): Promise<void> {
     };
 
     // execute the deploy
-    console.log('deploy command', deployCmd[0], deployCmd.slice(1));
-    await exec.exec(deployCmd[0], deployCmd.slice(1), options);
+    core.info(`deploy command:  ${deployCmd[0]} ${deployCmd.slice(1)}`);
+    // await exec.exec(deployCmd[0], deployCmd.slice(1), options);
 
-    // set deploy URLs to output for following steps
-    const urls = getDeployURLs(deployOutput);
-    if (urls) {
-      for (let key in urls) {
-        core.setOutput(key, urls[key]);
-      }
-    }
+    // // set deploy URLs to output for following steps
+    // const urls = getDeployURLs(deployOutput);
+    // if (urls) {
+    //   for (let key in urls) {
+    //     core.setOutput(key, urls[key]);
+    //   }
+    // }
   } catch (error) {
     //@ts-ignore
     core.setFailed(error.message);
