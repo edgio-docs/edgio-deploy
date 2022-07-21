@@ -10,10 +10,13 @@
 import * as core from '@actions/core';
 import exec from '@actions/exec';
 import github from '@actions/github';
+import checkEnvironment from '../utils/checkEnvironment';
 import getDeployURLs from '../utils/deployOutput';
 import { getPackageManager, getPackage } from '../utils/packageManager';
 
 export default async function deploy(): Promise<void> {
+  checkEnvironment();
+
   try {
     // set the deploy token to the env from user's input
     const $deploy_token = core.getInput('token');
@@ -61,6 +64,7 @@ export default async function deploy(): Promise<void> {
       }
     }
   } catch (error) {
+    //@ts-ignore
     core.setFailed(error.message);
   }
 }
