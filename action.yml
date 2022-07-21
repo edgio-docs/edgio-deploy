@@ -1,0 +1,18 @@
+name: 'Edgio Deploy Action'
+description: 'Greet someone and record the time'
+inputs:
+  action:
+    description: The action to take [deploy|update]
+    default: deploy
+  token:
+    description: 'Edgio token when using the 'deploy' action'
+outputs:
+  buildUrl:
+    description: 'URL of this build in Edgio's developer console'
+  permalinkUrl:
+    description: 'URL of this build's permalink
+  edgeUrl:
+    description: 'URL of the live (edge) deployment'
+runs:
+  using: 'node14'
+  main: 'dist/index.js'

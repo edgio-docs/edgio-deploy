@@ -1,0 +1,42 @@
+{
+  "name": "edgio-deploy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write **/*.ts",
+    "pack": "ncc build ./lib/index.js -o dist",
+    "all": "npm run format && npm run build && npm run pack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/layer0-docs/edgio-deploy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/layer0-docs/edgio-deploy/issues"
+  },
+  "homepage": "https://github.com/layer0-docs/edgio-deploy#readme",
+  "dependencies": {
+    "@actions/core": "^1.9.0",
+    "@actions/exec": "^1.1.1",
+    "@actions/github": "^5.0.3",
+    "fs-extra": "^10.1.0",
+    "pkg-types": "^0.3.3"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/node": "^12.7.12",
+    "@typescript-eslint/parser": "^2.8.0",
+    "@vercel/ncc": "^0.34.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-github": "^2.0.0",
+    "js-yaml": "^3.13.1",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.6.4"
+  }
+}
