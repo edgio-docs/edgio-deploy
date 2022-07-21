@@ -14,5 +14,5 @@ outputs:
   edgeUrl:
     description: URL of the live (edge) deployment
 runs:
-  using: node14
+  using: node16
   main: dist/index.js
