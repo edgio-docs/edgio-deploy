@@ -36,6 +36,7 @@ export default async function deploy(): Promise<void> {
       deployCmd.push(runCmd);
       deployCmd.push(customDeployCmd);
     } else {
+      deployCmd.push(execCmd);
       deployCmd.push('0 deploy');
     }
 
@@ -55,7 +56,7 @@ export default async function deploy(): Promise<void> {
 
     // execute the deploy
     core.info(`deploy command:  ${deployCmd[0]} ${deployCmd.slice(1)}`);
-    await exec.exec(deployCmd[0], deployCmd.slice(1), options);
+    // await exec.exec(deployCmd[0], deployCmd.slice(1), options);
 
     // // set deploy URLs to output for following steps
     // const urls = getDeployURLs(deployOutput);
