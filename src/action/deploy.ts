@@ -36,8 +36,8 @@ export default async function deploy(): Promise<void> {
       deployCmd.push(runCmd);
       deployCmd.push(customDeployCmd);
     } else {
-      deployCmd.push(execCmd);
-      deployCmd.push('0 deploy');
+      deployCmd.push('0');
+      deployCmd.push('deploy');
     }
 
     let deployOutput = '';
