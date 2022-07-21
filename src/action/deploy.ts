@@ -43,7 +43,7 @@ export default async function deploy(): Promise<void> {
     let deployOutput = '';
     let deployError = '';
 
-    const options = {
+    const options: exec.ExecOptions = {
       listeners: {
         stdout: (data: Buffer) => {
           deployOutput += data.toString();
@@ -56,7 +56,7 @@ export default async function deploy(): Promise<void> {
 
     // execute the deploy
     core.info(`deploy command:  ${deployCmd[0]} ${deployCmd.slice(1)}`);
-    // await exec.exec(deployCmd[0], deployCmd.slice(1), options);
+    await exec.exec(deployCmd.join(' '), [], options);
 
     // // set deploy URLs to output for following steps
     // const urls = getDeployURLs(deployOutput);
