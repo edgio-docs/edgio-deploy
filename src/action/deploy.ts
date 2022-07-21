@@ -55,6 +55,7 @@ export default async function deploy(): Promise<void> {
     };
 
     // execute the deploy
+    console.log('deploy command', deployCmd[0], deployCmd.slice(1));
     await exec.exec(deployCmd[0], deployCmd.slice(1), options);
 
     // set deploy URLs to output for following steps
