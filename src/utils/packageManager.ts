@@ -1,7 +1,6 @@
 import fse from 'fs-extra';
 import { join } from 'path';
-import core from '@actions/core';
-import { PackageJson, readPackageJSON } from 'pkg-types';
+import * as core from '@actions/core';
 
 interface IPkgManager {
   isNpm: boolean;
@@ -39,6 +38,6 @@ export async function getPackageManager(): Promise<IPkgManager> {
  * Gets the parsed package.json contents
  * @returns Promise<Object> package.json parsed
  */
-export async function getPackage(): Promise<PackageJson> {
-  return await readPackageJSON(join(process.cwd(), 'package.json'));
+export async function getPackage(): Promise<Object> {
+  return await fse.readJson(join(process.cwd(), 'package.json'));
 }

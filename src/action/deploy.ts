@@ -29,6 +29,7 @@ export default async function deploy(): Promise<void> {
     const pkg = await getPackage();
 
     // if a 'edgio:deploy' script is defined, use this instead of default deploy command
+    //@ts-ignore
     const customDeployCmd = pkg.scripts?.['edgio:deploy'];
 
     if (customDeployCmd) {

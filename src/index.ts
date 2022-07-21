@@ -7,7 +7,7 @@
 // - deploy script (defaults to `0 deploy` or can take a package script name)
 // - add pr comment after deploy
 
-import core from "@actions/core";
+import * as core from "@actions/core";
 import deploy from "./action";
 
 async function run(): Promise<void> {
