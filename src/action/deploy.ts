@@ -14,6 +14,14 @@ import checkEnvironment from '../utils/checkEnvironment';
 import getDeployURLs from '../utils/deployOutput';
 import { getPackageManager, getPackage } from '../utils/packageManager';
 
+function getBranchFromRef(ref: string) {
+  if (ref.indexOf('/refs/heads/') > -1) {
+    ref = ref.slice('/refs/heads/'.length);
+  }
+
+  return ref;
+}
+
 export default async function deploy(): Promise<void> {
   checkEnvironment();
 
@@ -24,6 +32,7 @@ export default async function deploy(): Promise<void> {
     process.env['LAYER0_DEPLOY_TOKEN'] = $deploy_token;
 
     const deployCmd = [];
+    const deployArgs = [];
 
     const { execCmd, runCmd } = await getPackageManager();
     const pkg = await getPackage();
@@ -40,6 +49,8 @@ export default async function deploy(): Promise<void> {
       deployCmd.push('0 deploy');
     }
 
+    deployArgs.push(`--branch ${getBranchFromRef(github.context.ref)}`);
+
     let deployOutput = '';
     let deployError = '';
 
@@ -55,16 +66,17 @@ export default async function deploy(): Promise<void> {
     };
 
     // execute the deploy
-    core.info(`deploy command:  ${deployCmd[0]} ${deployCmd.slice(1)}`);
-    await exec.exec(deployCmd.join(' '), [], options);
+    await exec.exec(deployCmd.join(' '), deployArgs, options);
 
-    // // set deploy URLs to output for following steps
-    // const urls = getDeployURLs(deployOutput);
-    // if (urls) {
-    //   for (let key in urls) {
-    //     core.setOutput(key, urls[key]);
-    //   }
-    // }
+    // set deploy URLs to output for following steps
+    const urls = getDeployURLs(deployOutput);
+    if (urls) {
+      for (let key in urls) {
+        core.setOutput(key, urls[key]);
+      }
+    }
+
+    core.info(`urls: ${urls}`);
   } catch (error) {
     //@ts-ignore
     core.setFailed(error.message);
