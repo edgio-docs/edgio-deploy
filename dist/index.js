@@ -16353,8 +16353,7 @@ function wrappy (fn, cb) {
 // required:
 // - deploy token
 // optional:
-// - environment (defaults to production)
-// - branch name (current branch default)
+// - environment (defaults to default)
 // - deploy script (defaults to `0 deploy` or can take a package script name)
 // - add pr comment after deploy
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
@@ -16436,8 +16435,7 @@ function deploy() {
                 deployCmd.push(execCmd);
                 deployCmd.push('0 deploy');
             }
-            core.info(JSON.stringify(github.context));
-            // deployArgs.push(`--branch ${getBranchFromRef(github.context.ref)}`);
+            deployArgs.push(`--branch ${getBranchFromRef(github.context.ref)}`);
             let deployOutput = '';
             let deployError = '';
             const options = {
@@ -16460,7 +16458,7 @@ function deploy() {
                     core.setOutput(key, urls[key]);
                 }
             }
-            core.info(`urls: ${JSON.stringify(urls)}`);
+            // TODO: publish links to PR
         }
         catch (error) {
             //@ts-ignore

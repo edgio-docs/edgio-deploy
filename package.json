@@ -40,7 +40,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn pack && git add -A ."
+      "pre-commit": "yarn run pack && git add -A ."
     }
   }
 }
