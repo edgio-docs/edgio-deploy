@@ -14,8 +14,8 @@ import getDeployURLs from '../utils/deployOutput';
 import { getPackageManager, getPackage } from '../utils/packageManager';
 
 function getBranchFromRef(ref: string) {
-  if (ref.indexOf('/refs/heads/') > -1) {
-    ref = ref.slice('/refs/heads/'.length);
+  if (ref.indexOf('refs/heads/') > -1) {
+    ref = ref.slice('refs/heads/'.length);
   }
 
   return ref;

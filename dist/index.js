@@ -16399,8 +16399,8 @@ const checkEnvironment_1 = __importDefault(__nccwpck_require__(6485));
 const deployOutput_1 = __importDefault(__nccwpck_require__(2514));
 const packageManager_1 = __nccwpck_require__(8547);
 function getBranchFromRef(ref) {
-    if (ref.indexOf('/refs/heads/') > -1) {
-        ref = ref.slice('/refs/heads/'.length);
+    if (ref.indexOf('refs/heads/') > -1) {
+        ref = ref.slice('refs/heads/'.length);
     }
     return ref;
 }
