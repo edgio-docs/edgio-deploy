@@ -26,8 +26,10 @@ export default async function deploy(): Promise<void> {
   checkEnvironment();
 
   try {
-    // set the deploy token to the env from user's input
     const $deploy_token = core.getInput('token');
+    const $deploy_command = core.getInput('deployCommand');
+
+    // set the deploy token to the env from user's input
     core.setSecret($deploy_token);
     process.env['LAYER0_DEPLOY_TOKEN'] = $deploy_token;
 
@@ -37,14 +39,21 @@ export default async function deploy(): Promise<void> {
     const { execCmd, runCmd } = await getPackageManager();
     const pkg = await getPackage();
 
-    // if a 'edgio:deploy' script is defined, use this instead of default deploy command
+    const customDeployCmd = $deploy_command;
     //@ts-ignore
-    const customDeployCmd = pkg.scripts?.['edgio:deploy'];
+    const pkgDeployScript = pkg.scripts?.['edgio:deploy'];
 
-    if (customDeployCmd) {
-      deployCmd.push(runCmd);
+    // Run a user-defined deploy command as defined on the action
+    if (customDeployCmd.length) {
       deployCmd.push(customDeployCmd);
-    } else {
+    }
+    // Run the deploy script as defined in package.json as `edgio:deploy`
+    else if (pkgDeployScript) {
+      deployCmd.push(runCmd);
+      deployCmd.push(pkgDeployScript);
+    }
+    // Fallback to the base deploy command
+    else {
       deployCmd.push(execCmd);
       deployCmd.push('0 deploy');
     }

@@ -1,0 +1,8 @@
+{
+  "packages": ["integration-tests/*"],
+  "command": {
+    "run": {
+      "npmClient": "npm"
+    }
+  }
+}

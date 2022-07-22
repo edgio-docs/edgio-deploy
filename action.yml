@@ -6,6 +6,8 @@ inputs:
     default: deploy
   token:
     description: Edgio token when using the deploy action
+  deployCommand:
+    description: Custom deploy command to execute
 outputs:
   buildUrl:
     description: URL of this build in Edgio developer console

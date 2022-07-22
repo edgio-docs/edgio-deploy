@@ -1,0 +1,31 @@
+name: Test Deploy Integrations
+on: push
+jobs:
+  deploy-default:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - uses: actions/checkout@v2
+      - name: Cache node modules
+        working-directory: ./integration-tests/standard-deploy
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install modules
+        working-directory: ./integration-tests/standard-deploy
+        run: npm ci
+      - name: Deploy
+        working-directory: ./integration-tests/standard-deploy
+        uses: ../../
+        with:
+          token: ${{secrets.deploy_token}}
