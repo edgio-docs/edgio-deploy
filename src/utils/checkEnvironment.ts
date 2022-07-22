@@ -4,6 +4,7 @@ import * as exec from '@actions/exec';
 export default async function checkEnvironment() {
   // Edgio dependencies
   try {
+    core.info(`current dir: ${process.cwd()} - ${__dirname}`);
     await exec.exec('0 --version');
   } catch (e) {
     //@ts-ignore
