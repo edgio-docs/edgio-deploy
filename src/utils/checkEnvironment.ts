@@ -1,11 +1,13 @@
 import * as core from '@actions/core';
 import * as exec from '@actions/exec';
+import { getPackageManager } from '../utils/packageManager';
 
 export default async function checkEnvironment() {
   // Edgio dependencies
   try {
+    const { execCmd } = await getPackageManager();
     core.info(`current dir: ${process.cwd()} - ${__dirname}`);
-    await exec.exec('0 --version');
+    await exec.exec(execCmd, ['0 --version']);
   } catch (e) {
     //@ts-ignore
     core.error(e.message);

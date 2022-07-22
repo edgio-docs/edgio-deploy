@@ -23,7 +23,6 @@ jobs:
             ${{ runner.os }}-
       - name: Install modules
         run: |
-          echo "::add-path::./integration-tests/standard-deploy/node_modules/.bin"
           npm ci
           cd ./integration-tests/standard-deploy
           npm ci
