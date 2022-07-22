@@ -13,10 +13,8 @@ import deploy from './action';
 
 async function run(): Promise<void> {
   const action = core.getInput('action');
-  const path = core.getInput('path');
 
-  process.chdir(path);
-  core.addPath(join(path, 'node_modules', '.bin'));
+  core.info(`index.js dirs: ${process.cwd()} - ${__dirname}`);
 
   switch (action) {
     case 'deploy':

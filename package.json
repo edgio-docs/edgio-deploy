@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "format": "prettier --write **/*.ts",
-    "pack": "ncc build -m -o dist ./src/index.ts",
+    "pack": "ncc build ./src/entry.ts && mv dist/index.js dist/entry.js && ncc build ./src/index.ts",
     "all": "npm run format && npm run pack",
     "test": "ncc run ./src/index.ts"
   },

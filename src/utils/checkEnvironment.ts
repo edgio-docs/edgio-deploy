@@ -6,7 +6,6 @@ export default async function checkEnvironment() {
   // Edgio dependencies
   try {
     const { execCmd } = await getPackageManager();
-    core.info(`current dir: ${process.cwd()} - ${__dirname}`);
     await exec.exec(execCmd, ['0 --version']);
   } catch (e) {
     //@ts-ignore

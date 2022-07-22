@@ -20,4 +20,4 @@ outputs:
     description: URL of the live (edge) deployment
 runs:
   using: node16
-  main: dist/index.js
+  main: dist/entry.js
