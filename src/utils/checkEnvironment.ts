@@ -1,10 +1,10 @@
 import * as core from '@actions/core';
+import * as exec from '@actions/exec';
 
-export default function checkEnvironment() {
+export default async function checkEnvironment() {
   // Edgio dependencies
   try {
-    require('@layer0/cli/constants');
-    require('@layer0/core/');
+    await exec.exec('0 --version');
   } catch (e) {
     core.setFailed(
       'Required dependencies `@layer0/cli` or `@layer0/core` not found. ' +
