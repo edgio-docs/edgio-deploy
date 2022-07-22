@@ -5,7 +5,7 @@ import * as core from '@actions/core';
 interface IPkgManager {
   isNpm: boolean;
   isYarn: boolean;
-  runCmd: string;
+  scriptCmd: string;
   execCmd: string;
 }
 
@@ -29,8 +29,8 @@ export async function getPackageManager(): Promise<IPkgManager> {
   return {
     isNpm,
     isYarn,
-    runCmd: isYarn ? 'yarn' : 'npm run',
-    execCmd: isYarn ? 'yarn' : 'npx',
+    scriptCmd: isYarn ? 'yarn' : 'npm run',
+    execCmd: 'npm exec --package=@layer0/cli',
   };
 }
 

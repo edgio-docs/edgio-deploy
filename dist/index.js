@@ -16417,7 +16417,7 @@ function deploy() {
             process.env['LAYER0_DEPLOY_TOKEN'] = $deploy_token;
             const deployCmd = [];
             const deployArgs = [];
-            const { execCmd, runCmd } = yield (0, packageManager_1.getPackageManager)();
+            const { execCmd, scriptCmd } = yield (0, packageManager_1.getPackageManager)();
             const pkg = yield (0, packageManager_1.getPackage)();
             const customDeployCmd = $deploy_command;
             //@ts-ignore
@@ -16428,7 +16428,7 @@ function deploy() {
             }
             // Run the deploy script as defined in package.json as `edgio:deploy`
             else if (pkgDeployScript) {
-                deployCmd.push(runCmd);
+                deployCmd.push(scriptCmd);
                 deployCmd.push(pkgDeployScript);
             }
             // Fallback to the base deploy command
@@ -16701,8 +16701,8 @@ function getPackageManager() {
         return {
             isNpm,
             isYarn,
-            runCmd: isYarn ? 'yarn' : 'npm run',
-            execCmd: isYarn ? 'yarn' : 'npx',
+            scriptCmd: isYarn ? 'yarn' : 'npm run',
+            execCmd: 'npm exec --package=@layer0/cli',
         };
     });
 }

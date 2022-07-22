@@ -36,7 +36,7 @@ export default async function deploy(): Promise<void> {
     const deployCmd = [];
     const deployArgs: Array<string> = [];
 
-    const { execCmd, runCmd } = await getPackageManager();
+    const { execCmd, scriptCmd } = await getPackageManager();
     const pkg = await getPackage();
 
     const customDeployCmd = $deploy_command;
@@ -49,7 +49,7 @@ export default async function deploy(): Promise<void> {
     }
     // Run the deploy script as defined in package.json as `edgio:deploy`
     else if (pkgDeployScript) {
-      deployCmd.push(runCmd);
+      deployCmd.push(scriptCmd);
       deployCmd.push(pkgDeployScript);
     }
     // Fallback to the base deploy command
