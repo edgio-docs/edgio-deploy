@@ -20,4 +20,5 @@ outputs:
     description: URL of the live (edge) deployment
 runs:
   using: node16
+  pre: setup.js
   main: dist/index.js
