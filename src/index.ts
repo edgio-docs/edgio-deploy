@@ -7,6 +7,7 @@
 // - deploy script (defaults to `0 deploy` or can take a package script name)
 // - add pr comment after deploy
 
+import { join } from 'path';
 import * as core from '@actions/core';
 import deploy from './action';
 
@@ -15,7 +16,7 @@ async function run(): Promise<void> {
   const path = core.getInput('path');
 
   process.chdir(path);
-  core.addPath(path);
+  core.addPath(join(path, 'node_modules', '.bin'));
 
   switch (action) {
     case 'deploy':
