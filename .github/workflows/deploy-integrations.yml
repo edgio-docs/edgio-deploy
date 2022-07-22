@@ -23,9 +23,9 @@ jobs:
             ${{ runner.os }}-
       - name: Install modules
         run: |
-          npm ci
+          yarn install --frozen-lockfile
           cd ./integration-tests/standard-deploy
-          npm ci
+          yarn install --frozen-lockfile
       - name: Deploy
         uses: ./
         with:
