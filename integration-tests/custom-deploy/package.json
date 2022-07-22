@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "custom:deploy": "echo 'custom deploy' && 0 deploy --environment custom-deploy"
   },
   "keywords": [],
   "author": "",

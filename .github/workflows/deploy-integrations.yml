@@ -27,10 +27,19 @@ jobs:
           cd ./integration-tests/standard-deploy
           yarn install --frozen-lockfile
       - name: Deploy
+        id: deploy
         uses: ./
         with:
           token: ${{secrets.deploy_token}}
           path: ./integration-tests/standard-deploy
+      - name: Verify deployment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            proceess.exit(process.env.BUILD_URL.includes('default')?0:1)
+        env:
+          BUILD_URL: ${{ steps.deploy.outputs.buildUrl }}
+
   deploy-script:
     runs-on: ubuntu-latest
     steps:
@@ -57,10 +66,19 @@ jobs:
           cd ./integration-tests/script-deploy
           yarn install --frozen-lockfile
       - name: Deploy
+        id: deploy
         uses: ./
         with:
           token: ${{secrets.deploy_token}}
           path: ./integration-tests/script-deploy
+      - name: Verify deployment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            proceess.exit(process.env.BUILD_URL.includes('script-deploy')?0:1)
+        env:
+          BUILD_URL: ${{ steps.deploy.outputs.buildUrl }}
+
   deploy-custom:
     runs-on: ubuntu-latest
     steps:
@@ -87,8 +105,16 @@ jobs:
           cd ./integration-tests/custom-deploy
           yarn install --frozen-lockfile
       - name: Deploy
+        id: deploy
         uses: ./
         with:
           token: ${{secrets.deploy_token}}
-          deployCommand: yarn 0 deploy --environment custom-deploy
-          path: ./integration-tests/standard-deploy
+          deployCommand: yarn custom:deploy
+          path: ./integration-tests/custom-deploy
+      - name: Verify deployment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            proceess.exit(process.env.BUILD_URL.includes('custom-deploy')?0:1)
+        env:
+          BUILD_URL: ${{ steps.deploy.outputs.buildUrl }}

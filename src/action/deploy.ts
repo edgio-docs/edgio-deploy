@@ -2,8 +2,7 @@
 // required:
 // - deploy token
 // optional:
-// - environment (defaults to production)
-// - branch name (current branch default)
+// - environment (defaults to default)
 // - deploy script (defaults to `0 deploy` or can take a package script name)
 // - add pr comment after deploy
 
@@ -58,8 +57,7 @@ export default async function deploy(): Promise<void> {
       deployCmd.push('0 deploy');
     }
 
-    core.info(JSON.stringify(github.context));
-    // deployArgs.push(`--branch ${getBranchFromRef(github.context.ref)}`);
+    deployArgs.push(`--branch ${getBranchFromRef(github.context.ref)}`);
 
     let deployOutput = '';
     let deployError = '';
@@ -87,7 +85,7 @@ export default async function deploy(): Promise<void> {
       }
     }
 
-    core.info(`urls: ${JSON.stringify(urls)}`);
+    // TODO: publish links to PR
   } catch (error) {
     //@ts-ignore
     core.setFailed(error.message);
