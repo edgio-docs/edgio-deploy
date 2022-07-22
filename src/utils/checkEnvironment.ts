@@ -6,6 +6,8 @@ export default async function checkEnvironment() {
   try {
     await exec.exec('0 --version');
   } catch (e) {
+    //@ts-ignore
+    core.error(e.message);
     core.setFailed(
       'Required dependencies `@layer0/cli` or `@layer0/core` not found. ' +
         'Ensure this dependencies are defined in `package.json`'
