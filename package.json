@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
+    "prepare": "husky install",
     "build": "tsc",
     "format": "prettier --write **/*.ts",
     "pack": "ncc build ./src/entry.ts && mv dist/index.js dist/entry.js && ncc build ./src/index.ts",
@@ -36,10 +37,5 @@
     "lerna": "^5.1.8",
     "prettier": "^1.19.1",
     "typescript": "^4.7.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run pack && git add"
-    }
   }
 }

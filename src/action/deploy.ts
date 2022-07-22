@@ -23,6 +23,7 @@ function getBranchFromRef(ref: string) {
 
 export default async function deploy(): Promise<void> {
   await checkEnvironment();
+  console.log('foo');
 
   try {
     const $deploy_token = core.getInput('token');
