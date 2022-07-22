@@ -31,3 +31,64 @@ jobs:
         with:
           token: ${{secrets.deploy_token}}
           path: ./integration-tests/standard-deploy
+  deploy-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Cache node modules
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install modules
+        run: |
+          yarn install --frozen-lockfile
+          cd ./integration-tests/script-deploy
+          yarn install --frozen-lockfile
+      - name: Deploy
+        uses: ./
+        with:
+          token: ${{secrets.deploy_token}}
+          path: ./integration-tests/script-deploy
+  deploy-custom:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Cache node modules
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install modules
+        run: |
+          yarn install --frozen-lockfile
+          cd ./integration-tests/custom-deploy
+          yarn install --frozen-lockfile
+      - name: Deploy
+        uses: ./
+        with:
+          token: ${{secrets.deploy_token}}
+          deployCommand: yarn 0 deploy --environment custom-deploy
+          path: ./integration-tests/standard-deploy

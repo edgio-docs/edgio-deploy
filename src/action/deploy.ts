@@ -87,7 +87,7 @@ export default async function deploy(): Promise<void> {
       }
     }
 
-    core.info(`urls: ${urls}`);
+    core.info(`urls: ${JSON.stringify(urls)}`);
   } catch (error) {
     //@ts-ignore
     core.setFailed(error.message);
