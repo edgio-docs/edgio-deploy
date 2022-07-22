@@ -3,9 +3,6 @@ on: push
 jobs:
   deploy-default:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./integration-tests/standard-deploy
     steps:
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.9.1
@@ -26,9 +23,9 @@ jobs:
             ${{ runner.os }}-
       - name: Install modules
         run: |
-          ls -al
           npm ci
-          ls -al
+          cd ./integration-tests/standard-deploy
+          npm ci
       - name: Deploy
         uses: ./
         with:
