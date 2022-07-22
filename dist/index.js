@@ -6502,7 +6502,6 @@ function deploy() {
                 },
             };
             // execute the deploy
-            console.log('test2');
             yield exec.exec(deployCmd.join(' '), deployArgs, options);
             // set deploy URLs to output for following steps
             const urls = (0, deployOutput_1.default)(deployOutput);
