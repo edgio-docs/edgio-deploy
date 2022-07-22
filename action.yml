@@ -8,6 +8,9 @@ inputs:
     description: Edgio token when using the deploy action
   deployCommand:
     description: Custom deploy command to execute
+  path:
+    description: Runs the action in the context of the specified path
+    default: ./
 outputs:
   buildUrl:
     description: URL of this build in Edgio developer console
