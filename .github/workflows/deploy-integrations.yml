@@ -8,7 +8,12 @@ jobs:
         uses: styfle/cancel-workflow-action@0.9.1
         with:
           access_token: ${{ github.token }}
-      - uses: actions/checkout@v2
+      - name: Checkout action
+        uses: actions/checkout@v3
+        with:
+          path: ./action
+      - name: Checkout test
+        uses: actions/checkout@v3
       - name: Cache node modules
         working-directory: ./integration-tests/standard-deploy
         uses: actions/cache@v1
@@ -26,6 +31,6 @@ jobs:
         run: npm ci
       - name: Deploy
         working-directory: ./integration-tests/standard-deploy
-        uses: ../../
+        uses: ./action
         with:
           token: ${{secrets.deploy_token}}
