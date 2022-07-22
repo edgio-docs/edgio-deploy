@@ -12,8 +12,10 @@ import deploy from './action';
 
 async function run(): Promise<void> {
   const action = core.getInput('action');
+  const path = core.getInput('path');
 
-  process.chdir(core.getInput('path'));
+  process.chdir(path);
+  core.addPath(path);
 
   switch (action) {
     case 'deploy':
