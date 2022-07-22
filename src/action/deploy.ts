@@ -57,7 +57,7 @@ export default async function deploy(): Promise<void> {
       deployCmd.push('0 deploy');
     }
 
-    deployArgs.push(`--branch ${getBranchFromRef(github.context.ref)}`);
+    // deployArgs.push(`--branch ${getBranchFromRef(github.context.ref)}`);
 
     let deployOutput = '';
     let deployError = '';
@@ -74,7 +74,6 @@ export default async function deploy(): Promise<void> {
     };
 
     // execute the deploy
-    core.info('execute deploy');
     await exec.exec(deployCmd.join(' '), deployArgs, options);
 
     // set deploy URLs to output for following steps
