@@ -9,7 +9,7 @@
 
 import * as core from '@actions/core';
 import * as exec from '@actions/exec';
-import github from '@actions/github';
+import * as github from '@actions/github';
 import checkEnvironment from '../utils/checkEnvironment';
 import getDeployURLs from '../utils/deployOutput';
 import { getPackageManager, getPackage } from '../utils/packageManager';
@@ -34,7 +34,7 @@ export default async function deploy(): Promise<void> {
     process.env['LAYER0_DEPLOY_TOKEN'] = $deploy_token;
 
     const deployCmd = [];
-    const deployArgs = [];
+    const deployArgs: Array<string> = [];
 
     const { execCmd, runCmd } = await getPackageManager();
     const pkg = await getPackage();
@@ -58,7 +58,8 @@ export default async function deploy(): Promise<void> {
       deployCmd.push('0 deploy');
     }
 
-    deployArgs.push(`--branch ${getBranchFromRef(github.context.ref)}`);
+    core.info(JSON.stringify(github.context));
+    // deployArgs.push(`--branch ${getBranchFromRef(github.context.ref)}`);
 
     let deployOutput = '';
     let deployError = '';
@@ -75,6 +76,7 @@ export default async function deploy(): Promise<void> {
     };
 
     // execute the deploy
+    core.info('execute deploy');
     await exec.exec(deployCmd.join(' '), deployArgs, options);
 
     // set deploy URLs to output for following steps
